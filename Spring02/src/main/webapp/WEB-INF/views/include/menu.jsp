@@ -16,6 +16,7 @@
 	<a href = "${path}/gugu.do?dan=4">구구단 4단</a>
 	<a href = "${path}/test.do">테스트</a>
 	<a href = "${path}/member/list.do">회원관리</a>
+</div>
 <h2>${message}</h2>
 </body>
 </html>
