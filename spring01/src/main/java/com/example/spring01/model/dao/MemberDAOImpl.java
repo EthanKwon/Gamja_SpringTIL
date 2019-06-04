@@ -45,12 +45,14 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public void deleteMember(String userid) {
+		sqlSession.delete("member.deleteMember",userid);
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void updateMember(MemberDTO vo) {
+		sqlSession.update("member.updateMember",vo);
 		// TODO Auto-generated method stub
 
 	}

@@ -29,7 +29,7 @@ $(function(){
 	<table border="1" width="400px">
 		<tr>
 			<td>아이디</td>
-			<td><input name="userid" value"${dto.userid}" readonly></td>
+			<td><input name="userid" value="${dto.userid}" readonly></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
@@ -37,11 +37,11 @@ $(function(){
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input name="name" value"${dto.name}" ></td>
+			<td><input name="name" value="${dto.name}" ></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input name="email" value"${dto.email}" ></td>
+			<td><input name="email" value="${dto.email}" ></td>
 		</tr>
 		<tr>
 			<td> 회원 가입 일자 </td>

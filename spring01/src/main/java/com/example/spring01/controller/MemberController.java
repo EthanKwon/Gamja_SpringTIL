@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring01.model.dto.MemberDTO;
 import com.example.spring01.service.MemberService;
@@ -40,18 +41,48 @@ public class MemberController {
 	//view.do?userid=kim 이라면
 	//@RequestParam String userid 변수에 kim이 저장됨
 	@RequestMapping("member/view.do")
-	public String view(@ModelAttribute String userid, Model model) {
+	public String view(@RequestParam String userid, Model model) {
 		model.addAttribute("dto",memberService.viewMember(userid));
 		return "member/view";
 	}
 	
 	//@ModelAttribute는 폼의 전체 데이터를 전달함, 즉 dto
-	//@RequestParm 는 폼의 개별 데이터를 전달함
+	//@RequestParam 는 폼의 개별 데이터를 전달함
 	
 	@RequestMapping("member/update.do")
-	public String update(@ModelAttribute String userid, Model model) {
-		model.addAttribute("dto",memberService.viewMember(userid));
-		return "member/view";
+	public String update(@ModelAttribute MemberDTO dto, Model model) {
+		Logger.info("아이디 : " + dto.getUserid());
+		Logger.info("비밀번호 : " + dto.getPasswd());
+		boolean result = memberService.checkPw(dto.getUserid(), dto.getPasswd());
+		Logger.info("비밀번호 확인: " + result);
+		if(result) {
+			memberService.updateMember(dto);
+			return "redirect:/member/list.do";
+		} else {
+			MemberDTO dto2 = memberService.viewMember(dto.getUserid());
+			dto.setJoin_date(dto2.getJoin_date());
+			model.addAttribute("dto",dto);
+			model.addAttribute("message","비밀번호가 일치하지 않습니다");
+			return "member/view";
+		}
+	}
+	
+	@RequestMapping("member/delete.do")
+	public String delete(@ModelAttribute MemberDTO dto, Model model) {
+		Logger.info("아이디 : " + dto.getUserid());
+		Logger.info("비밀번호 : " + dto.getPasswd());
+		boolean result = memberService.checkPw(dto.getUserid(), dto.getPasswd());
+		Logger.info("비밀번호 확인: " + result);
+		if(result) {
+			memberService.deleteMember(dto.getUserid());
+			return "redirect:/member/list.do";
+		} else {
+			MemberDTO dto2 = memberService.viewMember(dto.getUserid());
+			dto.setJoin_date(dto2.getJoin_date());
+			model.addAttribute("dto",dto);
+			model.addAttribute("message","비밀번호가 일치하지 않습니다");
+			return "member/view";
+		}
 	}
 
 }
