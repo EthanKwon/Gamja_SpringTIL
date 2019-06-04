@@ -1,0 +1,59 @@
+Controller
+
+	MemberController.java
+
+Model
+	MemberDAO.java		인터페이스
+	MemberDAOImpl.java	구현클래스
+	MemberDTO.java		
+	memberMapper.xml		SQL매퍼
+View
+	member_list.jsp
+	write.jsp
+	view.jsp
+
+Service
+	MemberService.java		인터페이스
+	MemberServiceImpl.java	구현클래스
+
+
+-------------------------------오라클 계정 생성-------------------------------------------
+
+-관리자 권한으로 접근
+sqlplus / as sysdba
+
+-작업할 워크 스페이스 작성
+create tablespace spring
+datafile 'D:\Gamja_file\Egov\Gamja_STS4_TIL/spring.dbf'size 50m
+autoextend on
+next 10m
+maxsize unlimited;
+
+-사용자 계정 만들기
+create user spring identified by 1234
+default tablespace spring;
+
+-사용자 계정 삭제
+drop user spring cascade;
+
+-사용자 권한 부여
+grant connect, resource, dba to spring;
+
+- 사용자 계정 연결
+conn spring/1234
+
+- 사용자 확인
+show user;
+
+- 테이블 생성
+create table member(
+userid varchar2(50) not null primary key,
+passwd varchar2(50) not null,
+name varchar2(50) not null,
+email varchar2(50),
+join_date date default sysdate
+);
+
+- 테이블 삽입
+insert into member (userid, passwd, name, email)
+values('kim','1234','김철수','kim@gmail.com');
